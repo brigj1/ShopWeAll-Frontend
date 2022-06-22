@@ -1,0 +1,29 @@
+-| App:
+state: names
+state: shopDate
+
+---| Home
+
+---| NameManagement
+state: names
+
+---| ShopDates
+state: shopDate
+
+---| OrderInput
+state: names
+state: shopDate
+      -| OrderLine
+state: names
+state: shopDate
+      Submit
+
+
+---| PickList
+      -| Pick
+
+
+MAYBE:
+---| BottomNav
+      -| AddItem
+      -| EditItem
