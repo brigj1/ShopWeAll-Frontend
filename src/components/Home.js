@@ -1,4 +1,5 @@
 import Sku from "./Sku"
+import Order from "./Order"
 
 function Home( { names, orders, skus } ) {
 
@@ -21,11 +22,18 @@ function Home( { names, orders, skus } ) {
         })
 
     //list of skus
-    console.log(skus)
     const skuList = skus.map((item) =>
     {
         return (
             <Sku label={ item.label } totalUnits={ item.unit_count } price={ item.price } />
+        )
+    })
+
+    //list of orders
+    const shoppingList = orders.map((item) =>
+    {
+        return (
+            <Order />
         )
     })
 
@@ -54,13 +62,18 @@ function Home( { names, orders, skus } ) {
                     </table>
                 </div>
             </div>
-
-
             <div className="shoppingListContainer">
                 <h3>Orders</h3>
-                <div className="shoppingListLines">
-
-                </div>
+                <table className="shoppingListLines">
+                    <thead>
+                        <th scope="col">Label</th>
+                        <th scope="col">Total Qty</th>
+                        <th scope="col">Price</th>
+                    </thead>
+                    <tbody>
+                        { shoppingList }
+                    </tbody>
+                </table>
             </div>
         </div>
     )
