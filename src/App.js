@@ -7,7 +7,7 @@ import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 function App() {
   const [names, setNames] = useState([]);
   const [orders, setOrders] = useState([]);
-  // const storeName = 'Costco'
+  const [skus, setSkus] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:9292/names")
@@ -19,6 +19,12 @@ function App() {
     fetch("http://localhost:9292/orders")
     .then((res) => res.json())
     .then(setOrders)
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:9292/skus")
+    .then((res) => res.json())
+    .then(setSkus)
   }, []);
   
 
@@ -35,7 +41,7 @@ function App() {
           </ul>
         </nav>
         <Routes>
-            <Route path='/' element={ <Home names= {names} orders = {orders} />} />
+            <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus}/>} />
           </Routes>
       </Router>
   </div>
