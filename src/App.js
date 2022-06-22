@@ -6,16 +6,23 @@ import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 
 function App() {
   const [names, setNames] = useState([]);
-  const [shopDate, setShopDate] = useState([]);
-  const storeName = 'Costco'
+  const [orders, setOrders] = useState([]);
+  // const storeName = 'Costco'
 
   useEffect(() => {
     fetch("http://localhost:9292/names")
     .then((res) => res.json())
-    .then(setNames);
+    .then(setNames)
   }, []);
-  const shopper_name = names.find(name_obj => name_obj.name === 'Billy')
-  console.log('shopper_name', shopper_name)
+
+  useEffect(() => {
+    fetch("http://localhost:9292/orders")
+    .then((res) => res.json())
+    .then(setOrders)
+  }, []);
+  
+
+  // const shopperName = names.find(name_obj => name_obj.name === 'Billy')
 
   return (
     <div className="App">
@@ -28,7 +35,7 @@ function App() {
           </ul>
         </nav>
         <Routes>
-            <Route path='/' element={ <Home shopper_name={shopper_name} />} />
+            <Route path='/' element={ <Home names= {names} orders = {orders} />} />
           </Routes>
       </Router>
   </div>
