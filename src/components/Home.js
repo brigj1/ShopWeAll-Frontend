@@ -15,6 +15,14 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem,
         }
     })
 
+    const shopperId = names.map((item) =>
+    {
+        if (item.name === 'Billy')
+        {
+            return item.id
+        }
+    })
+
     //get shop year
     const shopYear = orders.map((item) =>
     {
@@ -43,8 +51,8 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem,
     })
 
     //get name and nameId from drop down 
-    const [chosenName, setChosenName] = useState("Name")
-    const [chosenNameId, setChosenNameId] = useState("")
+    const [chosenName, setChosenName] = useState(shopperName)
+    const [chosenNameId, setChosenNameId] = useState(shopperId)
     function changeName(nameObj)
     {
         setChosenName(nameObj.name)
