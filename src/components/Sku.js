@@ -38,7 +38,8 @@ function Sku({ id, label, totalUnits, price, handleOrderItem, addInput })
         }
         else
         {
-            let total = (price * event.target.value).toFixed(2)
+            let qty = (event.target.value) * .01
+            let total = (price * qty).toFixed(2)
             setYouPay(total)
 
             let orderObj = 
