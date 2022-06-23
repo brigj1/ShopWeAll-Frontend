@@ -1,24 +1,34 @@
 import { useState } from "react"
 
-function Sku({ label, totalUnits, price })
+function Sku({ id, label, totalUnits, price, handleOrderItem })
 {
-
     const [youPay, setYouPay] = useState("$0.00")
 
     //handles unit quantity change
     function handleUnitQtyChange(event)
     {
-        if (event.target.value == 0 || event.target.value == "")
+        if (event.target.value == 0 || event.target.value == "" || event.target.value == "NaN")
         {
             setYouPay("$0.00")
         }
         else
         {
             let qty = ( eval(event.target.value) )
-            let total = price * qty
-            setYouPay(total.toFixed(2))
+            let total = (price * qty).toFixed(2)
+            setYouPay(total)
+            
+            let orderObj = 
+            {
+                skuId: id,
+                label: label,
+                totalQty: qty,
+                price: total
+            }
+
+            handleOrderItem(orderObj)
         }
     }
+    // console.log(orderList)
 
     //handles abs quantity change
     function handleAbsQtyChange(event)
@@ -29,8 +39,18 @@ function Sku({ label, totalUnits, price })
         }
         else
         {
-            let total = price * event.target.value
-            setYouPay(total.toFixed(2))
+            let total = (price * event.target.value).toFixed(2)
+            setYouPay(total)
+
+            let orderObj = 
+            {
+                skuId: id,
+                label: label,
+                totalQty: event.target.value,
+                price: total
+            }
+
+            handleOrderItem(orderObj)
         }
     }
 
