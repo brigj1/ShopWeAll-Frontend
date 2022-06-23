@@ -1,8 +1,8 @@
 import Sku from "./Sku"
-import Order from "./Order"
+import OrderItem from "./OrderItem"
 import { useState } from "react"
 
-function Home( { names, orders, skus } ) {
+function Home( { names, orders, skus, handleAddOrderItem } ) {
 
     //finds the shopper name
     const shopperName = names.map(name_obj => 
@@ -13,28 +13,84 @@ function Home( { names, orders, skus } ) {
         }
     })
 
-    //finds the shop date
-    const shopDate = orders.map(date_obj => 
+    const shopYear = orders.map((item) =>
+    {
+        if (item.year == '2022')
         {
-            if (date_obj.shop_date === '2022-06-25')
+            return item.year
+        }
+    })
+
+    const shopMonth = orders.map((item) =>
+    {
+        if (item.month == '06')
+        {
+            return item.month
+        }
+    })
+
+    const shopDay = orders.map((item) =>
+    {
+        if (item.day == '25')
+        {
+            return item.day
+        }
+    })
+
+    //get Billy name id
+    const nameId = names.map((item) =>
+    {
+        if (item.name === 'Billy')
+        {
+            return item.id
+        }
+    })
+
+    //list of orders
+    const [orderItem, setOrderItem] = useState("")
+    const handleOrderItem = (order) =>
+    {
+        setOrderItem(order)
+    }
+
+    const shoppingList = orders.map((item) =>
+    {
+        return (
+            <OrderItem skuId={ item.sku_id } totalQty={ item.quantity } skus={ skus }/>
+        )
+    })
+
+    //adds input to order
+    function submitInputs()
+    {
+        let submitOrderObj = 
+        {
+            sku_id: parseInt(orderItem.skuId),
+            quantity: parseFloat(orderItem.totalQty),
+            name_id: parseInt(nameId[0]),
+            year: parseInt(shopYear[0]),
+            month: parseInt(shopMonth[0]),
+            day: parseInt(shopDay[0])
+        }
+
+        fetch("http://localhost:9292/orders", 
+        {
+            method: 'POST',
+            headers: 
             {
-                return date_obj.shop_date
-            }
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(submitOrderObj)
         })
+        .then(resp => resp.json())
+        .then(data => handleAddOrderItem(data)) 
+    }
 
     //list of skus
     const skuList = skus.map((item) =>
     {
         return (
-            <Sku label={ item.label } totalUnits={ item.unit_count } price={ item.price } />
-        )
-    })
-
-    //list of orders
-    const shoppingList = orders.map((item) =>
-    {
-        return (
-            <Order />
+            <Sku id={item.id} label={ item.label } totalUnits={ item.unit_count } price={ item.price } handleOrderItem={ handleOrderItem } />
         )
     })
 
@@ -42,7 +98,7 @@ function Home( { names, orders, skus } ) {
         <div>
             <div className="shoppingInfoContainer">
                 <h2>{ shopperName[0]}</h2>
-                <h2>{ shopDate[0] }</h2>
+                <h2>{ shopYear[0] }-{ shopMonth[0] }-{ shopDay[0] } </h2>
                 <h2>Store: Costco</h2>
             </div>
             <div className="orderInputContainer">
@@ -61,6 +117,7 @@ function Home( { names, orders, skus } ) {
                             { skuList }
                         </tbody>
                     </table>
+                    <button onClick={submitInputs}>Submit</button>
                 </div>
             </div>
             <div className="shoppingListContainer">

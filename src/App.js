@@ -26,9 +26,11 @@ function App() {
     .then((res) => res.json())
     .then(setSkus)
   }, []);
-  
 
-  // const shopperName = names.find(name_obj => name_obj.name === 'Billy')
+  function handleAddOrderItem(newOrderItem)
+  {
+    setOrders([...orders, newOrderItem])
+  }
 
   return (
     <div className="App">
@@ -41,7 +43,7 @@ function App() {
           </ul>
         </nav>
         <Routes>
-            <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus}/>} />
+            <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus} handleAddOrderItem={ handleAddOrderItem }/>} />
           </Routes>
       </Router>
   </div>
