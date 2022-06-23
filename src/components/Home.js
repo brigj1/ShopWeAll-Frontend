@@ -3,6 +3,7 @@ import OrderItem from "./OrderItem"
 import Name from "./Name"
 import { useState } from "react"
 import Dropdown from "react-bootstrap/Dropdown";
+import Table from "react-bootstrap/Table";
 
 function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem, handleDeleteOrder } ) {
 
@@ -51,8 +52,8 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem,
     })
 
     //get name and nameId from drop down 
-    const [chosenName, setChosenName] = useState(shopperName)
-    const [chosenNameId, setChosenNameId] = useState(shopperId)
+    const [chosenName, setChosenName] = useState(shopperName[0])
+    const [chosenNameId, setChosenNameId] = useState(shopperId[0])
     function changeName(nameObj)
     {
         setChosenName(nameObj.name)
@@ -179,7 +180,8 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem,
             </div>
             <div className="orderInputContainer">
                 <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <h5 id="name">Name:</h5>
+                    <Dropdown.Toggle variant="success" id="nameDropdown">
                         { chosenName }
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
@@ -187,7 +189,7 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem,
                     </Dropdown.Menu>
                 </Dropdown>
                 <div className="orderInputs">
-                    <table class="orderInputTable">
+                    <Table className="orderInputTable" striped bordered hover size="sm">
                         <thead>
                             <th scope="col">Label</th>
                             <th scope="col">Total Units</th>
@@ -199,12 +201,12 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem,
                         <tbody>
                             { skuList }
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             </div>
             <div className="shoppingListContainer">
                 <h3>Shopping List</h3>
-                <table className="shoppingListLines">
+                <Table className="shoppingListLines" striped bordered hover size="sm">
                     <thead>
                         <th scope="col">Name</th>
                         <th scope="col">Label</th>
@@ -214,7 +216,7 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem,
                     <tbody>
                         { shoppingList }
                     </tbody>
-                </table>
+                </Table>
             </div>
         </div>
     )

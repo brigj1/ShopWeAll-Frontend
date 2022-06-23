@@ -11,37 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-input {
-  font-size: 15px;
-  width: 25px;
-  height: 25px;
-}
-
-.orderInput {
-  float: left;
-  margin-top: 10px;
-}
-
-.noInput {
-  background-color: grey;
-  width: 30px;
-  height: 30px;
-  float: left;
-  margin-top: 12px;
-}
-
-.percentage {
-  float: left;
-  margin-left: 5px;
-}
-
-.dollarSign {
-  float: left;
-  margin-right: 2px;
-}
-
-.youPayAmount {
-  float: left;
-  margin-top: 16px;
-}

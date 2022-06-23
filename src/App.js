@@ -59,15 +59,17 @@ function App() {
       <Router>
         <nav>
           <ul className="linkClass">
-            <li><Link to='/'>Home</Link></li>
-            {/* <li><Link to='name management'>Name Management</Link></li> */}
-            {/* <li><Link to='shopdates'>Shop Dates</Link></li> */}
+          <h1 id="title">Shop We All</h1>
+            <li className="navLinks"><Link to='/'>Home</Link></li>
+            {/* <li className="navLinks"><Link to='name management'>Name Management</Link></li> */}
+            {/* <li className="navLinks"><Link to='shopdates'>Shop Dates</Link></li> */}
           </ul>
         </nav>
         <Routes>
             <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus} handleAddOrderItem={ handleAddOrderItem } handleUpdateOrderItem={ handleUpdateOrderItem } handleDeleteOrder={ handleDeleteOrder }/>} />
           </Routes>
       </Router>
+      <div id="footer"></div>
   </div>
 );
 }
