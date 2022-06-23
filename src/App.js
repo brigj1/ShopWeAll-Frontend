@@ -28,7 +28,7 @@ function App() {
 
   function handleAddOrderItem(newOrderItem)
   {
-    setOrders([...orders, newOrderItem])
+    setOrders([newOrderItem, ...orders])
   }
 
   function handleUpdateOrderItem(updatedOrderItem)
