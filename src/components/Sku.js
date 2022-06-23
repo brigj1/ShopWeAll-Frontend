@@ -46,7 +46,7 @@ function Sku({ id, label, totalUnits, price, handleOrderItem, addInput })
             {
                 skuId: id,
                 label: label,
-                totalQty: event.target.value,
+                totalQty: qty,
                 orderPrice: total
             }
 
