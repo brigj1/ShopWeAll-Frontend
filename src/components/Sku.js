@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function Sku({ id, label, totalUnits, price, handleOrderItem })
+function Sku({ id, label, totalUnits, price, handleOrderItem, addInput })
 {
     const [youPay, setYouPay] = useState("$0.00")
 
@@ -22,7 +22,7 @@ function Sku({ id, label, totalUnits, price, handleOrderItem })
                 skuId: id,
                 label: label,
                 totalQty: qty,
-                price: total
+                orderPrice: total
             }
 
             handleOrderItem(orderObj)
@@ -46,7 +46,7 @@ function Sku({ id, label, totalUnits, price, handleOrderItem })
                 skuId: id,
                 label: label,
                 totalQty: event.target.value,
-                price: total
+                orderPrice: total
             }
 
             handleOrderItem(orderObj)
@@ -78,6 +78,7 @@ function Sku({ id, label, totalUnits, price, handleOrderItem })
                 <p className="percentage">%</p>
             </td>
             <td>{youPay}</td>
+            <button onClick={ addInput }>Add</button>
         </tr>
     )
 }
