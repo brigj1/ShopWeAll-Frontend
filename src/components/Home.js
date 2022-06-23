@@ -1,6 +1,8 @@
 import Sku from "./Sku"
 import OrderItem from "./OrderItem"
+import Name from "./Name"
 import { useState } from "react"
+import Dropdown from "react-bootstrap/Dropdown";
 
 function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem } ) {
 
@@ -48,9 +50,24 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
 
     //list of orders
     const [orderItem, setOrderItem] = useState("")
+    const [domItems, setDomItems] = useState([])
+
     const handleOrderItem = (order) =>
     {
         setOrderItem(order)
+
+        const changeOrder = orders.map((item) =>
+        {
+          if (item.sku_id == order.skuId)
+          {
+            return order
+          }
+          else
+          {
+            return item
+          }
+        })
+        setDomItems([changeOrder])
     }
 
     const shoppingList = orders.map((item) =>
@@ -125,6 +142,19 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
         )
     })
 
+    const [chosenName, setChosenName] = useState("Name")
+    function changeName(event)
+    {
+        setChosenName(event.target.value)
+    }
+
+    const nameList = names.map((item) =>
+    {
+        return (
+            <Name name={item.name} changeName={ changeName }/>
+        )
+    })
+
     return (
         <div>
             <div className="shoppingInfoContainer">
@@ -133,7 +163,19 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
                 <h2>Store: Costco</h2>
             </div>
             <div className="orderInputContainer">
-                <h3>Name: Billy</h3>
+                {/* drop down */}
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        { chosenName }
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {/* <Dropdown.Item as="button" onClick={ changeName } value="Billy">Billy</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={ changeName }>Tom</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={ changeName }>Sarah</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={ changeName }>Sally</Dropdown.Item> */}
+                        { nameList }
+                    </Dropdown.Menu>
+                </Dropdown>
                 <div className="orderInputs">
                     <table class="orderInputTable">
                         <thead>
