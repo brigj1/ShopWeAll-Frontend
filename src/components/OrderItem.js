@@ -25,7 +25,7 @@ function OrderItem({ skuId, totalQty, skus, orderPrice, nameId, names, deleteInp
             <td> {label.label} </td>
             <td>{totalQty}</td>
             <td>{ orderPrice } </td>
-            <button onClick={ deleteInput } value={ orderId }>Delete</button>
+            <button onClick={ deleteInput } value={ orderId } className="deleteButton">Delete</button>
         </tr>
     )
 }

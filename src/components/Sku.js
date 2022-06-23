@@ -58,28 +58,28 @@ function Sku({ id, label, totalUnits, price, handleOrderItem, addInput })
         <tr>
             <td>{ label }</td>
             <td>{totalUnits == 1000000 ? 
-                    <div className="noInput"></div>
+                    <div className="noInput totalUnits"></div>
                     :
                     totalUnits
                 }</td>
             <td>{ price }</td>
             <td>
                 {totalUnits == 1000000 ? 
-                    <div className="noInput"></div>
+                    <div className="noInput unitQtyNo"></div>
                     :
-                    <input className="orderInput" onChange={ handleUnitQtyChange }></input>
+                    <input className="orderInput unitQtyInput" onChange={ handleUnitQtyChange }></input>
                 }
             </td>
             <td>
                 {totalUnits == 1000000 ? 
-                    <input className="orderInput" onChange={ handleAbsQtyChange }></input>
+                    <input className="orderInput absQtyInput" onChange={ handleAbsQtyChange }></input>
                     :
-                    <div className="noInput"></div>
+                    <div className="noInput absQtyNo"></div>
                 }
                 <p className="percentage">%</p>
             </td>
             <td>{youPay}</td>
-            <button onClick={ addInput }>Add</button>
+            <button onClick={ addInput } className="addButton">Add</button>
         </tr>
     )
 }
