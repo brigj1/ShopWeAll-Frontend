@@ -2,7 +2,7 @@ import Sku from "./Sku"
 import OrderItem from "./OrderItem"
 import { useState } from "react"
 
-function Home( { names, orders, skus, handleAddOrderItem } ) {
+function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem } ) {
 
     //finds the shopper name
     const shopperName = names.map(name_obj => 
@@ -113,7 +113,7 @@ function Home( { names, orders, skus, handleAddOrderItem } ) {
                 body: JSON.stringify(submitOrderObj)
             })
             .then(resp => resp.json())
-            .then(data => console.log(data))
+            .then(data => handleUpdateOrderItem(data))
         }
     }
 

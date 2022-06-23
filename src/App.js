@@ -32,6 +32,23 @@ function App() {
     setOrders([...orders, newOrderItem])
   }
 
+  function handleUpdateOrderItem(updatedOrderItem)
+  {
+    const changeOrder = orders.map((item) =>
+    {
+      if (item.id == updatedOrderItem.id)
+      {
+        return updatedOrderItem
+      }
+      else
+      {
+        return item
+      }
+    })
+    setOrders(changeOrder)
+  }
+
+
   return (
     <div className="App">
       <Router>
@@ -43,7 +60,7 @@ function App() {
           </ul>
         </nav>
         <Routes>
-            <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus} handleAddOrderItem={ handleAddOrderItem }/>} />
+            <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus} handleAddOrderItem={ handleAddOrderItem } handleUpdateOrderItem={ handleUpdateOrderItem }/>} />
           </Routes>
       </Router>
   </div>
