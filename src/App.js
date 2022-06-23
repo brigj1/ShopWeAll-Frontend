@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import logo from './logo.svg';
 import './App.css';
 import Home from './components/Home';
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
@@ -48,7 +47,6 @@ function App() {
     setOrders(changeOrder)
   }
 
-
   return (
     <div className="App">
       <Router>
@@ -60,7 +58,7 @@ function App() {
           </ul>
         </nav>
         <Routes>
-            <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus} handleAddOrderItem={ handleAddOrderItem } handleUpdateOrderItem={ handleUpdateOrderItem }/>} />
+            <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus} handleAddOrderItem={ handleAddOrderItem } handleUpdateOrderItem={ handleUpdateOrderItem } />} />
           </Routes>
       </Router>
   </div>
