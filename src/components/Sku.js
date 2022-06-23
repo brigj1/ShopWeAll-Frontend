@@ -28,7 +28,6 @@ function Sku({ id, label, totalUnits, price, handleOrderItem })
             handleOrderItem(orderObj)
         }
     }
-    // console.log(orderList)
 
     //handles abs quantity change
     function handleAbsQtyChange(event)

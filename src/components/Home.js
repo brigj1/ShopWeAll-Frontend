@@ -60,7 +60,7 @@ function Home( { names, orders, skus, handleAddOrderItem } ) {
         )
     })
 
-    //adds input to order
+    //adds input to orders
     function submitInputs()
     {
         let submitOrderObj = 
@@ -73,17 +73,48 @@ function Home( { names, orders, skus, handleAddOrderItem } ) {
             day: parseInt(shopDay[0])
         }
 
-        fetch("http://localhost:9292/orders", 
+        //finding whether post or patch
+        const filteredOrders = orders.filter((item) =>
         {
-            method: 'POST',
-            headers: 
+            if (item.name_id == nameId[0] && item.year == shopYear[0] && item.month == shopMonth[0] && item.day == shopDay[0] && item.sku_id == orderItem.skuId)
             {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(submitOrderObj)
+                return (item)
+            }
         })
-        .then(resp => resp.json())
-        .then(data => handleAddOrderItem(data)) 
+
+        const filteredOrderId = filteredOrders.map((item) =>
+        {
+            return item.id
+        })
+
+        if (filteredOrders == "")
+        {
+            fetch("http://localhost:9292/orders", 
+            {
+                method: 'POST',
+                headers: 
+                {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(submitOrderObj)
+            })
+            .then(resp => resp.json())
+            .then(data => handleAddOrderItem(data)) 
+        }
+        else
+        {
+            fetch(`http://localhost:9292/orders/${filteredOrderId[0]}`,
+            {
+                method: "PATCH",
+                headers:
+                {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(submitOrderObj)
+            })
+            .then(resp => resp.json())
+            .then(data => console.log(data))
+        }
     }
 
     //list of skus
