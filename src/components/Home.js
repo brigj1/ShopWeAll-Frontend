@@ -15,30 +15,6 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
         }
     })
 
-    const shopYear = orders.map((item) =>
-    {
-        if (item.year == '2022')
-        {
-            return item.year
-        }
-    })
-
-    const shopMonth = orders.map((item) =>
-    {
-        if (item.month == '06')
-        {
-            return item.month
-        }
-    })
-
-    const shopDay = orders.map((item) =>
-    {
-        if (item.day == '25')
-        {
-            return item.day
-        }
-    })
-
     //get Billy name id
     const nameId = names.map((item) =>
     {
@@ -48,7 +24,51 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
         }
     })
 
-    //list of orders
+    //get shop year
+    const shopYear = orders.map((item) =>
+    {
+        if (item.year == '2022')
+        {
+            return item.year
+        }
+    })
+
+    //get shop month
+    const shopMonth = orders.map((item) =>
+    {
+        if (item.month == '06')
+        {
+            return item.month
+        }
+    })
+
+    //get shop day
+    const shopDay = orders.map((item) =>
+    {
+        if (item.day == '25')
+        {
+            return item.day
+        }
+    })
+
+    //get name and nameId from drop down 
+    const [chosenName, setChosenName] = useState("Name")
+    const [chosenNameId, setChosenNameId] = useState("")
+    function changeName(nameObj)
+    {
+        setChosenName(nameObj.name)
+        setChosenNameId(nameObj.nameId)
+    }
+
+    //populate drop down with names
+    const nameList = names.map((item) =>
+    {
+        return (
+            <Name nameId={ item.id } name={ item.name } changeName={ changeName }/>
+        )
+    })
+
+    //list of orders for dom
     const [orderItem, setOrderItem] = useState("")
     const [domItems, setDomItems] = useState([])
 
@@ -70,6 +90,7 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
         setDomItems([changeOrder])
     }
 
+    //get shopping list
     const shoppingList = orders.map((item) =>
     {
         return (
@@ -84,7 +105,7 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
         {
             sku_id: parseInt(orderItem.skuId),
             quantity: parseFloat(orderItem.totalQty),
-            name_id: parseInt(nameId[0]),
+            name_id: parseInt(chosenNameId),
             year: parseInt(shopYear[0]),
             month: parseInt(shopMonth[0]),
             day: parseInt(shopDay[0])
@@ -93,12 +114,15 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
         //finding whether post or patch
         const filteredOrders = orders.filter((item) =>
         {
-            if (item.name_id == nameId[0] && item.year == shopYear[0] && item.month == shopMonth[0] && item.day == shopDay[0] && item.sku_id == orderItem.skuId)
+            if (item.name_id == chosenNameId && item.year == shopYear[0] && item.month == shopMonth[0] && item.day == shopDay[0] && item.sku_id == orderItem.skuId)
             {
                 return (item)
             }
         })
 
+        console.log(filteredOrders)
+
+        //get item id for patch request
         const filteredOrderId = filteredOrders.map((item) =>
         {
             return item.id
@@ -142,19 +166,6 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
         )
     })
 
-    const [chosenName, setChosenName] = useState("Name")
-    function changeName(event)
-    {
-        setChosenName(event.target.value)
-    }
-
-    const nameList = names.map((item) =>
-    {
-        return (
-            <Name name={item.name} changeName={ changeName }/>
-        )
-    })
-
     return (
         <div>
             <div className="shoppingInfoContainer">
@@ -163,16 +174,11 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
                 <h2>Store: Costco</h2>
             </div>
             <div className="orderInputContainer">
-                {/* drop down */}
                 <Dropdown>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                         { chosenName }
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        {/* <Dropdown.Item as="button" onClick={ changeName } value="Billy">Billy</Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={ changeName }>Tom</Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={ changeName }>Sarah</Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={ changeName }>Sally</Dropdown.Item> */}
                         { nameList }
                     </Dropdown.Menu>
                 </Dropdown>
