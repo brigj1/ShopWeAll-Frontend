@@ -47,6 +47,13 @@ function App() {
     setOrders(changeOrder)
   }
 
+
+  function handleDeleteOrder(orderItem)
+  {
+    const filteredListing = orders.filter(item => item.id !== orderItem.id)
+    setOrders(filteredListing)
+  }
+
   return (
     <div className="App">
       <Router>
@@ -58,7 +65,7 @@ function App() {
           </ul>
         </nav>
         <Routes>
-            <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus} handleAddOrderItem={ handleAddOrderItem } handleUpdateOrderItem={ handleUpdateOrderItem } />} />
+            <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus} handleAddOrderItem={ handleAddOrderItem } handleUpdateOrderItem={ handleUpdateOrderItem } handleDeleteOrder={ handleDeleteOrder }/>} />
           </Routes>
       </Router>
   </div>

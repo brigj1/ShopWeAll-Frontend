@@ -4,7 +4,7 @@ import Name from "./Name"
 import { useState } from "react"
 import Dropdown from "react-bootstrap/Dropdown";
 
-function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem } ) {
+function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem, handleDeleteOrder } ) {
 
     //finds the shopper name
     const shopperName = names.map(name_obj => 
@@ -12,15 +12,6 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
         if (name_obj.name === 'Billy')
         {
             return name_obj.name
-        }
-    })
-
-    //get Billy name id
-    const nameId = names.map((item) =>
-    {
-        if (item.name === 'Billy')
-        {
-            return item.id
         }
     })
 
@@ -70,36 +61,30 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
 
     //list of orders for dom
     const [orderItem, setOrderItem] = useState("")
-    const [domItems, setDomItems] = useState([])
-
     const handleOrderItem = (order) =>
     {
         setOrderItem(order)
-
-        const changeOrder = orders.map((item) =>
-        {
-          if (item.sku_id == order.skuId)
-          {
-            return order
-          }
-          else
-          {
-            return item
-          }
-        })
-        setDomItems([changeOrder])
     }
 
+    //find shopping day first
+    const filteredShoppingByDate = orders.filter((item) =>
+    {
+        if (item.year == shopYear[0] && item.month == shopMonth[0] && item.day == shopDay[0])
+        return (
+            item
+        )
+    })
+
     //get shopping list
-    const shoppingList = orders.map((item) =>
+    const shoppingList = filteredShoppingByDate.map((item) =>
     {
         return (
-            <OrderItem skuId={ item.sku_id } totalQty={ item.quantity } skus={ skus }/>
+            <OrderItem skuId={ item.sku_id } totalQty={ item.quantity } skus={ skus } orderPrice={ item.order_price } nameId={ item.name_id } names={ names } deleteInput={ deleteInput } orderId={ item.id }/>
         )
     })
 
     //adds input to orders
-    function submitInputs()
+    function addInput()
     {
         let submitOrderObj = 
         {
@@ -108,7 +93,8 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
             name_id: parseInt(chosenNameId),
             year: parseInt(shopYear[0]),
             month: parseInt(shopMonth[0]),
-            day: parseInt(shopDay[0])
+            day: parseInt(shopDay[0]),
+            order_price: parseFloat(orderItem.orderPrice)
         }
 
         //finding whether post or patch
@@ -119,8 +105,6 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
                 return (item)
             }
         })
-
-        console.log(filteredOrders)
 
         //get item id for patch request
         const filteredOrderId = filteredOrders.map((item) =>
@@ -158,11 +142,23 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
         }
     }
 
+    //delete input
+    function deleteInput(event)
+    {
+        const orderId = parseInt(event.target.value)
+
+        fetch(`http://localhost:9292/orders/${orderId}`, {
+            method: "DELETE",
+          })
+            .then((r) => r.json())
+            .then((deletedReview) => handleDeleteOrder(deletedReview));
+    }
+
     //list of skus
     const skuList = skus.map((item) =>
     {
         return (
-            <Sku id={item.id} label={ item.label } totalUnits={ item.unit_count } price={ item.price } handleOrderItem={ handleOrderItem } />
+            <Sku id={item.id} label={ item.label } totalUnits={ item.unit_count } price={ item.price } handleOrderItem={ handleOrderItem } addInput={ addInput }/>
         )
     })
 
@@ -196,13 +192,13 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
                             { skuList }
                         </tbody>
                     </table>
-                    <button onClick={submitInputs}>Submit</button>
                 </div>
             </div>
             <div className="shoppingListContainer">
-                <h3>Orders</h3>
+                <h3>Shopping List</h3>
                 <table className="shoppingListLines">
                     <thead>
+                        <th scope="col">Name</th>
                         <th scope="col">Label</th>
                         <th scope="col">Total Qty</th>
                         <th scope="col">Price</th>

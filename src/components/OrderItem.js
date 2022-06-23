@@ -1,5 +1,8 @@
-function OrderItem({ skuId, totalQty, skus })
+import { useState } from "react"
+
+function OrderItem({ skuId, totalQty, skus, orderPrice, nameId, names, deleteInput, orderId})
 {
+
     const label = skus.find((item) =>
     {
         if (item.id == skuId)
@@ -8,21 +11,21 @@ function OrderItem({ skuId, totalQty, skus })
         }
     })
 
-    const price = skus.find((item) =>
+    const name = names.find((item) =>
     {
-        if (item.id == skuId)
+        if (item.id == nameId)
         {
             return item
         }
     })
 
-    const calculatedPrice = (price.price * totalQty).toFixed(2)
-
     return (
         <tr>
+            <td>{ name.name } </td>
             <td> {label.label} </td>
             <td>{totalQty}</td>
-            <td>{calculatedPrice}</td>
+            <td>{ orderPrice } </td>
+            <button onClick={ deleteInput } value={ orderId }>Delete</button>
         </tr>
     )
 }
