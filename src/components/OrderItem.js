@@ -22,7 +22,7 @@ function OrderItem({ skuId, totalQty, skus })
         <tr>
             <td> {label.label} </td>
             <td>{totalQty}</td>
-            <td>{calculatedPrice}</td>
+            <td>${calculatedPrice}</td>
         </tr>
     )
 }

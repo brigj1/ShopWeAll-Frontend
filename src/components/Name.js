@@ -15,7 +15,7 @@ function Name({ nameId, name, changeName })
     }
 
     return (
-        <Dropdown.Item as="button" onClick={ handleChangeName } value={ name }>Name: { name }</Dropdown.Item>
+        <Dropdown.Item as="button" onClick={ handleChangeName } value={ name }>{ name }</Dropdown.Item>
     )
 }
 export default Name

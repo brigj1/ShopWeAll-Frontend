@@ -2,7 +2,8 @@ import { useState } from "react"
 
 function Sku({ id, label, totalUnits, price, handleOrderItem })
 {
-    const [youPay, setYouPay] = useState("$0.00")
+    //const [youPay, setYouPay] = useState("$0.00")
+    const [youPay, setYouPay] = useState(0)
 
     //handles unit quantity change
     function handleUnitQtyChange(event)
@@ -14,7 +15,7 @@ function Sku({ id, label, totalUnits, price, handleOrderItem })
         else
         {
             let qty = ( eval(event.target.value) )
-            let total = (price * qty).toFixed(2)
+            let total = (price * qty / totalUnits).toFixed(2)
             setYouPay(total)
             
             let orderObj = 
@@ -38,7 +39,7 @@ function Sku({ id, label, totalUnits, price, handleOrderItem })
         }
         else
         {
-            let total = (price * event.target.value).toFixed(2)
+            let total = (price * event.target.value / 100).toFixed(2)
             setYouPay(total)
 
             let orderObj = 
@@ -56,28 +57,28 @@ function Sku({ id, label, totalUnits, price, handleOrderItem })
     return (
         <tr>
             <td>{ label }</td>
-            <td>{totalUnits == 1000000 ? 
+            <td>{totalUnits == 1_000_000 ? 
                     <div className="noInput"></div>
                     :
                     totalUnits
                 }</td>
-            <td>{ price }</td>
+            <td>${ price }</td>
             <td>
-                {totalUnits == 1000000 ? 
+                {totalUnits == 1_000_000 ? 
                     <div className="noInput"></div>
                     :
                     <input className="orderInput" onChange={ handleUnitQtyChange }></input>
                 }
             </td>
             <td>
-                {totalUnits == 1000000 ? 
+                {totalUnits == 1_000_000 ? 
                     <input className="orderInput" onChange={ handleAbsQtyChange }></input>
                     :
                     <div className="noInput"></div>
                 }
                 <p className="percentage">%</p>
             </td>
-            <td>{youPay}</td>
+            <td>${youPay}</td>
         </tr>
     )
 }

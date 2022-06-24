@@ -162,15 +162,21 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
     const skuList = skus.map((item) =>
     {
         return (
-            <Sku id={item.id} label={ item.label } totalUnits={ item.unit_count } price={ item.price } handleOrderItem={ handleOrderItem } />
+            <Sku
+                id = {item.id}
+                label = {item.label}
+                totalUnits = {item.unit_count}
+                price = {item.price}
+                handleOrderItem = {handleOrderItem}
+            />
         )
     })
 
     return (
         <div>
             <div className="shoppingInfoContainer">
-                <h2>{ shopperName[0]}</h2>
-                <h2>{ shopYear[0] }-{ shopMonth[0] }-{ shopDay[0] } </h2>
+                <h2>Name: { shopperName[0]}</h2>
+                <h2>Shop Date: { shopYear[0] }-{ shopMonth[0] }-{ shopDay[0] } </h2>
                 <h2>Store: Costco</h2>
             </div>
             <div className="orderInputContainer">
@@ -186,11 +192,11 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
                     <table class="orderInputTable">
                         <thead>
                             <th scope="col">Label</th>
-                            <th scope="col">Total Units</th>
+                            <th scope="col">Units/<br></br>Sale</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Unit Qty</th>
-                            <th scope="col">Abs Qty</th>
-                            <th scope="col">You pay:</th>
+                            <th scope="col">Unit<br></br>Qty</th>
+                            <th scope="col">Abs<br></br>Qty</th>
+                            <th scope="col">You<br></br>pay:</th>
                         </thead>
                         <tbody>
                             { skuList }
@@ -204,7 +210,7 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
                 <table className="shoppingListLines">
                     <thead>
                         <th scope="col">Label</th>
-                        <th scope="col">Total Qty</th>
+                        <th scope="col">Total<br></br>Qty</th>
                         <th scope="col">Price</th>
                     </thead>
                     <tbody>

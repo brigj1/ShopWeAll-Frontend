@@ -58,8 +58,16 @@ function App() {
           </ul>
         </nav>
         <Routes>
-            <Route path='/' element={ <Home names= {names} orders = {orders} skus={skus} handleAddOrderItem={ handleAddOrderItem } handleUpdateOrderItem={ handleUpdateOrderItem } />} />
-          </Routes>
+            <Route path='/'
+              element = {<Home
+                names = {names}
+                orders = {orders}
+                skus = {skus}
+                handleAddOrderItem = {handleAddOrderItem}
+                handleUpdateOrderItem = {handleUpdateOrderItem}
+              />}
+            />
+        </Routes>
       </Router>
   </div>
 );
