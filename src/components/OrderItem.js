@@ -15,13 +15,14 @@ function OrderItem({ skuId, totalQty, skus })
             return item
         }
     })
-
+    
+    //const calculatedPrice = (parseFloat(price.price * totalQty)).toFixed(2)
     const calculatedPrice = (price.price * totalQty).toFixed(2)
 
     return (
         <tr>
             <td> {label.label} </td>
-            <td>{totalQty}</td>
+            <td>{totalQty.toFixed(2)}</td>
             <td>${calculatedPrice}</td>
         </tr>
     )

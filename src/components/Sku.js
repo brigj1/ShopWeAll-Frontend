@@ -10,19 +10,19 @@ function Sku({ id, label, totalUnits, price, handleOrderItem })
     {
         if (event.target.value == 0 || event.target.value == "" || event.target.value == "NaN")
         {
-            setYouPay("$0.00")
+            setYouPay(0)
         }
         else
         {
             let qty = ( eval(event.target.value) )
-            let total = (price * qty / totalUnits).toFixed(2)
+            let total = (parseFloat(price * qty / totalUnits)).toFixed(2)
             setYouPay(total)
             
             let orderObj = 
             {
                 skuId: id,
                 label: label,
-                totalQty: qty,
+                totalQty: qty/totalUnits,
                 price: total
             }
 
@@ -35,18 +35,18 @@ function Sku({ id, label, totalUnits, price, handleOrderItem })
     {
         if (event.target.value == 0 || event.target.value == "")
         {
-            setYouPay("$0.00")
+            setYouPay(0)
         }
         else
         {
-            let total = (price * event.target.value / 100).toFixed(2)
+            let total = (parseFloat(price * event.target.value / 100)).toFixed(2)
             setYouPay(total)
 
             let orderObj = 
             {
                 skuId: id,
                 label: label,
-                totalQty: event.target.value,
+                totalQty: event.target.value/100,
                 price: total
             }
 
