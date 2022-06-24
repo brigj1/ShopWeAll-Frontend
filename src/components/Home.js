@@ -91,7 +91,26 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem 
     }
 
     //get shopping list
-    const shoppingList = orders.map((item) =>
+    const consolidatedOrders = {}
+    orders.forEach(
+        (order) => {
+            consolidatedOrders[order.sku_id] ||= 0
+            consolidatedOrders[order.sku_id] = consolidatedOrders[order.sku_id] + order.quantity;
+        }
+    )
+    //console.log("consolidatedOrders", consolidatedOrders)
+
+    const consolOrders = []
+    Object.keys(consolidatedOrders).forEach(key => {
+        consolOrders.push({
+            sku_id: key,
+            quantity: consolidatedOrders[key]
+        })
+    });
+    //console.log("consolOrders", consolOrders)
+
+    //const shoppingList = orders.map((item) =>
+    const shoppingList = consolOrders.map((item) =>
     {
         return (
             <OrderItem skuId={ item.sku_id } totalQty={ item.quantity } skus={ skus }/>
