@@ -91,18 +91,6 @@ input {
   width: 40px;
 }
 
-.absQtyNo {
-  margin-top: 5px;
-  margin-left: 35px;
-}
-
-.absQtyInput {
-  margin-top: 5px;
-  margin-left: 35px;
-  height: 40px;
-  width: 40px;
-}
-
 .percentage {
   float: left;
   margin-left: 5px;

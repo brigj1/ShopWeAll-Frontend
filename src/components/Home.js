@@ -52,7 +52,7 @@ function Home( { names, orders, skus, handleAddOrderItem, handleUpdateOrderItem,
     })
 
     //get name and nameId from drop down 
-    const [chosenName, setChosenName] = useState(shopperName[0])
+    const [chosenName, setChosenName] = useState("Billy")
     const [chosenNameId, setChosenNameId] = useState(shopperId[0])
     function changeName(nameObj)
     {
